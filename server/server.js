@@ -25,20 +25,36 @@ app.post('/users', (req, res) => {
     });
 });
 
-app.get('/users', (req, res) => {
-    users.find().then((doc) => {
-        res.send(doc);
-    }).catch((err) =>{
-        res.status(400).send(err);
-    });
-});
+// app.get('/users', (req, res) => {
+//     users.find().then((doc) => {
+//         res.send(doc);
+//     }).catch((err) =>{
+//         res.status(400).send(err);
+//     });
+// });
 
-app.get('/users/:id', (req, res) => {
+// app.get('/users/:id', (req, res) => {
+//     var id = req.params.id;
+//     if(!ObjectId.isValid(id)){
+//         return res.status(404).send();
+//     }
+//     users.findById(id).then((doc) => {
+//         if (!doc) {
+//             return res.status(404).send();
+//         }else{
+//             res.send({doc});
+//         }
+//     }).catch((err) => {
+//         res.status(400).send(err);
+//     });
+// });
+
+app.delete('/users/:id', (req, res) => {
     var id = req.params.id;
-    if(!ObjectId.isValid(id)){
+    if (!ObjectId.isValid(id)) {
         return res.status(404).send();
     }
-    users.findById(id).then((doc) => {
+    users.findOneAndDelete({_id: id}).then((doc) => {
         if (!doc) {
             return res.status(404).send();
         }else{
